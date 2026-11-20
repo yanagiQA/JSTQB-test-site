@@ -755,62 +755,6 @@ body {
 .trend-avg { text-align: center; font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; }
 .trend-avg b { font-size: 18px; color: var(--text-primary); margin-left: 8px; }
 
-/* ================= GitHub連携(学習ログの送信) =================
-   既存ルールには手を入れず、この機能専用のクラスだけを追加している。 */
-.btn-grass { background: var(--wakatake); color: #06180e; }
-.btn-grass:hover { filter: brightness(1.08); }
-[data-theme="light"] .btn-grass { color: #ffffff; }
-
-/* 章名は数値ではないため、等幅・大サイズの .stat-chip .v とは別の体裁にする */
-.gh-chapter-chip { flex: 2 1 240px; }
-.gh-chapter-chip .v {
-  font-family: var(--font-body); font-size: 12.5px; font-weight: 600;
-  line-height: 1.6; margin-top: 4px; color: var(--text-secondary);
-}
-
-.gh-preview-box { margin-top: 12px; }
-.gh-preview-box summary {
-  cursor: pointer; font-size: 12px; color: var(--hanada-strong);
-  padding: 4px 0; user-select: none;
-}
-.gh-preview {
-  margin: 8px 0 0; padding: 12px 14px; overflow-x: auto;
-  background: var(--ink-800); border: 1px solid var(--hairline); border-radius: var(--radius-md);
-  font-family: var(--font-mono); font-size: 11.5px; line-height: 1.8; color: var(--text-secondary);
-  white-space: pre-wrap; word-break: break-word;
-}
-
-.gh-status {
-  margin: 14px 0 0; padding: 12px 14px; border-radius: var(--radius-md);
-  border: 1px solid var(--hairline-soft); background: var(--surface-raised);
-  font-size: 12.5px; line-height: 1.7; color: var(--text-secondary);
-}
-.gh-status[hidden] { display: none; }
-.gh-status.ok { border-color: rgba(76,175,125,.45); background: var(--wakatake-wash); color: var(--text-primary); }
-.gh-status.ng { border-color: rgba(193,88,74,.45); background: var(--benigara-wash); color: var(--text-primary); }
-.gh-status a { color: var(--hanada-strong); }
-
-/* --- 設定モーダル --- */
-.modal-wide { max-width: 520px; }
-.gh-field { margin-bottom: 14px; }
-.gh-field label {
-  display: block; font-size: 12px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px;
-}
-.gh-field input[type="text"], .gh-field input[type="password"] {
-  width: 100%; background: var(--ink-800); border: 1px solid var(--hairline); color: var(--text-primary);
-  border-radius: 9px; padding: 10px 12px; font-family: var(--font-mono); font-size: 13px;
-}
-.gh-field input[type="text"]:focus, .gh-field input[type="password"]:focus {
-  outline: 2px solid var(--hanada); outline-offset: 1px;
-}
-.gh-token-row { display: flex; gap: 8px; align-items: center; }
-.gh-token-row input { flex: 1; min-width: 0; }
-.gh-token-row .btn { flex: none; }
-.gh-clear-btn { margin-right: auto; }
-/* .modal p より詳細度を上げないと本文色が上書きされないため、.modal を前置している */
-.modal p.gh-modal-error { border-color: rgba(193,88,74,.45); background: var(--benigara-wash); color: var(--text-primary); }
-.gh-modal-error[hidden] { display: none; }
-
 </style>
 </head>
 <body>
@@ -893,25 +837,6 @@ body {
         <button type="button" class="btn btn-secondary btn-block" id="home-btn-glossary">用語集を開く</button>
       </div>
 
-      <!-- ---------- GitHub連携(本日の学習実績で草を生やす) ---------- -->
-      <div class="card" id="gh-card">
-        <p class="section-title">GitHub連携 — 本日の学習実績で草を生やす</p>
-        <div class="stat-row">
-          <div class="stat-chip"><span class="k">本日 解いた問題数</span><span class="v" id="gh-today-total">0問</span></div>
-          <div class="stat-chip"><span class="k">本日 正解数</span><span class="v" id="gh-today-correct">0問</span></div>
-          <div class="stat-chip gh-chapter-chip"><span class="k">本日 実施した章</span><span class="v" id="gh-today-chapters">—</span></div>
-        </div>
-        <p class="notice" style="margin-top:14px;" id="gh-config-label">送信先リポジトリが未設定です。</p>
-        <details class="gh-preview-box">
-          <summary>README.md に記録される内容を確認する</summary>
-          <pre class="gh-preview" id="gh-preview"></pre>
-        </details>
-        <div class="btn-row" style="margin-top:16px;">
-          <button type="button" class="btn btn-secondary" id="gh-settings-btn">&#9881;&#65039; GitHub連携設定</button>
-          <button type="button" class="btn btn-grass" id="gh-push-btn">本日の学習をGitHubに送信して草を生やす</button>
-        </div>
-        <p class="gh-status" id="gh-status" hidden></p>
-      </div>
     </section>
 
     <!-- ===================== 学習カレンダー ===================== -->
@@ -1203,7 +1128,7 @@ body {
       <div class="crumb"><button type="button" id="backup-back">&larr; 設定</button></div>
       <div class="card">
         <p class="section-title">バックアップ</p>
-        <p class="notice">学習履歴・復習キュー・ブックマーク・用語集の状態・設定を、1つのJSONにまとめます。GitHub連携の設定とトークンは含まれません。機種変更の前に書き出して保管してください。</p>
+        <p class="notice">学習履歴・復習キュー・ブックマーク・用語集の状態・設定を、1つのJSONにまとめます。機種変更の前に書き出して保管してください。</p>
         <textarea class="data-textarea" id="backup-text" readonly placeholder="ここにバックアップが表示されます"></textarea>
         <div class="btn-row" style="margin-top:12px;">
           <button type="button" class="btn btn-primary" id="backup-download">ファイルに保存</button>
@@ -1241,39 +1166,6 @@ body {
     <div class="btn-row">
       <button type="button" class="btn btn-ghost" id="confirm-cancel">キャンセル</button>
       <button type="button" class="btn btn-danger" id="confirm-ok" style="background:var(--benigara);color:#fff;">OK</button>
-    </div>
-  </div>
-</div>
-
-<!-- ===================== GitHub連携設定モーダル ===================== -->
-<div class="modal-overlay" id="modal-github" hidden>
-  <div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="gh-modal-title">
-    <h3 id="gh-modal-title">&#9881;&#65039; GitHub連携設定</h3>
-    <p>学習ログの送信先を設定します。入力した内容はこのブラウザの localStorage にのみ保存され、GitHub以外へ送信されることはありません。</p>
-
-    <div class="gh-field">
-      <label for="gh-owner">GitHubユーザー名</label>
-      <input type="text" id="gh-owner" placeholder="例: octocat" autocomplete="off" spellcheck="false">
-    </div>
-    <div class="gh-field">
-      <label for="gh-repo">リポジトリ名</label>
-      <input type="text" id="gh-repo" placeholder="例: study-log" autocomplete="off" spellcheck="false">
-    </div>
-    <div class="gh-field">
-      <label for="gh-token">アクセストークン</label>
-      <div class="gh-token-row">
-        <input type="password" id="gh-token" placeholder="github_pat_… / ghp_…" autocomplete="off" spellcheck="false">
-        <button type="button" class="btn btn-ghost btn-sm" id="gh-token-toggle" aria-pressed="false">表示</button>
-      </div>
-    </div>
-
-    <p class="notice warn">対象リポジトリの <b>Contents: Read and write</b> だけを許可した Fine-grained personal access token の利用を推奨します。トークンはこのブラウザに<b>平文で保存</b>されるため、共有PCでは使用しないでください。</p>
-    <p class="notice gh-modal-error" id="gh-modal-error" hidden></p>
-
-    <div class="btn-row" style="margin-top:18px;">
-      <button type="button" class="btn btn-danger btn-sm gh-clear-btn" id="gh-modal-clear">設定を削除</button>
-      <button type="button" class="btn btn-ghost" id="gh-modal-cancel">キャンセル</button>
-      <button type="button" class="btn btn-primary" id="gh-modal-save">保存する</button>
     </div>
   </div>
 </div>
@@ -1316,9 +1208,7 @@ window.DB_STATS = {"practice":{"1":{"title":"テスト活動のマネジメン�
   const LS_BOOKMARKS = 'jstqb_tm_bookmarks_v1';
   const LS_SETTINGS = 'jstqb_tm_settings_v1';
   const LS_THEME = 'jstqb_tm_theme_v1';
-  const LS_DAILY = 'jstqb_tm_daily_v1';     // 日付ごとの学習実績(GitHub送信用)
-  const LS_GITHUB = 'jstqb_tm_github_v1';   // GitHub連携設定(ユーザーが画面から入力する)
-  const LS_GITHUB_TOKEN_ENC = 'jstqb_tm_github_token_enc_v1'; // GitHubトークンの暗号化保存先(平文では保存しない)
+  const LS_DAILY = 'jstqb_tm_daily_v1';     // 日付ごとの学習実績
   const LS_REVIEW = 'jstqb_tm_review_v1';   // 復習キュー(間隔反復の状態)
   const LS_GLOSSARY = 'jstqb_tm_glossary_v1'; // 用語フラッシュカードの状態(覚えた/苦手)
   const LS_SEEN = 'jstqb_tm_seen_v1';   // 解いたことのある問題(mode:id)の記録(「未実施のみ」用)
@@ -1353,7 +1243,6 @@ window.DB_STATS = {"practice":{"1":{"title":"テスト活動のマネジメン�
     history: [],
     bookmarks: [], // [{id, source, addedAt}]
     daily: {},     // { "YYYY-MM-DD": {date, totalQuestions, correctCount, sessions, chapters:{ch:{total,correct}}} }
-    github: null,  // {owner, repo, token, lastSent}
     review: {},    // { "mode:id": {mode, id, stage, due, wrong} } 復習キュー
     view: 'home',
     practiceScope: new Set(SECTION_KEYS), // デフォルトは全節選択
@@ -1401,15 +1290,6 @@ window.DB_STATS = {"practice":{"1":{"title":"テスト活動のマネジメン�
       const dl = JSON.parse(localStorage.getItem(LS_DAILY));
       state.daily = (dl && typeof dl === 'object' && !Array.isArray(dl)) ? dl : {};
     } catch (e) { state.daily = {}; }
-    try {
-      const gh = JSON.parse(localStorage.getItem(LS_GITHUB));
-      state.github = normalizeGithubSettings(gh);
-      if (gh && typeof gh.token === 'string' && gh.token) {
-        // 旧バージョンが平文で保存していたトークンを、暗号化保存へ移行する
-        saveGithubSettings();
-      }
-    } catch (e) { state.github = normalizeGithubSettings(null); }
-    ghRestoreToken();
   }
   function saveHistory() { localStorage.setItem(LS_HISTORY, JSON.stringify(state.history)); }
   function saveBookmarks() { localStorage.setItem(LS_BOOKMARKS, JSON.stringify(state.bookmarks)); }
@@ -1651,7 +1531,7 @@ window.DB_STATS = {"practice":{"1":{"title":"テスト活動のマネジメン�
     };
     state.history.unshift(record);
     saveHistory();
-    recordDailyLog(record); // 日付ごとの実績にも加算する(GitHubへの学習ログ送信用)
+    recordDailyLog(record); // 日付ごとの実績にも加算する
     updateReviewQueue(quiz.answers); // 復習キュー(間隔反復)を更新する
     quiz.answers.forEach((a) => { const s = a.questionSnapshot; if (s && s.mode && s.id) state.seen.add(s.mode + ':' + s.id); });
     saveSeen(); // 「未実施のみ」用に、解いた問題を記録する
@@ -2217,7 +2097,6 @@ window.DB_STATS = {"practice":{"1":{"title":"テスト活動のマネジメン�
     }
 
     renderStreak();
-    renderGithubCard();
     renderTodayCard();
   }
 
@@ -2797,7 +2676,7 @@ window.DB_STATS = {"practice":{"1":{"title":"テスト活動のマネジメン�
      --------------------------------------------------------- */
   /* ---------------------------------------------------------
      バックアップ / 復元(学習データのJSON書き出し・読み込み)
-     GitHub連携の設定・トークンは対象に含めない
+     外部サービス連携の設定・トークンは対象に含めない
      --------------------------------------------------------- */
   const BACKUP_KEYS = [LS_HISTORY, LS_BOOKMARKS, LS_SETTINGS, LS_DAILY, LS_REVIEW, LS_GLOSSARY, LS_THEME, LS_SEEN];
   function collectBackup() {
@@ -3217,493 +3096,6 @@ window.DB_STATS = {"practice":{"1":{"title":"テスト活動のマネジメン�
     saveDaily();
   }
 
-  function getTodayLog() {
-    const log = state.daily[todayKey()];
-    return log && log.totalQuestions > 0 ? log : null;
-  }
-
-  function dailyChapterLabels(log) {
-    if (!log) return [];
-    return Object.keys(log.chapters || {})
-      .sort((a, b) => Number(a) - Number(b))
-      .map(chapterLabel);
-  }
-
-  /**
-   * README.md に書き込む当日分のMarkdownブロックを組み立てる。
-   * 日付は書き込み対象日(=当日)、内容はその日の0時0分から現時点までの累計。
-   */
-  function buildDailyMarkdown(log) {
-    const chapters = dailyChapterLabels(log);
-    const pct = fmtPct(log.correctCount, log.totalQuestions);
-    return [
-      `## ${log.date} の学習実績`,
-      `- **実施した章:** ${chapters.length ? chapters.join(' / ') : '—'}`,
-      `- **解いた問題数:** ${log.totalQuestions}問`,
-      `- **正解数:** ${log.correctCount}問（正解率 ${pct}%）`,
-    ].join('\n');
-  }
-
-  /* ---------------------------------------------------------
-     17.7 GitHub連携(学習ログをREADME.mdへコミットする)
-     ユーザー名・リポジトリ名・アクセストークンはすべて画面から入力させ、
-     このブラウザの localStorage にのみ保存する(コードには一切埋め込まない)。
-     --------------------------------------------------------- */
-  const GITHUB_API = 'https://api.github.com';
-  const README_PATH = 'README.md';
-  const GH_NAME_RE = /^[A-Za-z0-9][A-Za-z0-9_.-]*$/;
-
-  function normalizeGithubSettings(raw) {
-    const g = (raw && typeof raw === 'object') ? raw : {};
-    return {
-      owner: typeof g.owner === 'string' ? g.owner : '',
-      repo: typeof g.repo === 'string' ? g.repo : '',
-      token: typeof g.token === 'string' ? g.token : '',
-      lastSent: (g.lastSent && typeof g.lastSent === 'object') ? g.lastSent : null,
-    };
-  }
-  /* --- GitHubトークンの暗号化保存 ---
-     トークンは平文で保存しない。WebCrypto(AES-GCM)で暗号化してから保存し、
-     鍵はIndexedDBに取り出し不可(non-extractable)で保持する。
-     IndexedDBが使えない環境では、鍵をlocalStorage側に分離して保持する。
-     暗号化が利用できない場合は保存自体を行わず、トークンはメモリ上のみで保持する。 */
-  const GH_TOKEN_DB = 'jstqb_tm_secure_v1';
-  const GH_TOKEN_STORE = 'keys';
-  const GH_TOKEN_KEY_ID = 'github-token-key';
-  const LS_GITHUB_KEY_JWK = 'jstqb_tm_github_key_v1';
-
-  function ghB64Encode(buf) {
-    const bytes = new Uint8Array(buf);
-    let bin = '';
-    const CHUNK = 0x8000;
-    for (let i = 0; i < bytes.length; i += CHUNK) {
-      bin += String.fromCharCode.apply(null, bytes.subarray(i, i + CHUNK));
-    }
-    return btoa(bin);
-  }
-  function ghB64Decode(str) {
-    const bin = atob(String(str));
-    const bytes = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-    return bytes;
-  }
-  function ghIdbOpen() {
-    return new Promise((resolve, reject) => {
-      const req = indexedDB.open(GH_TOKEN_DB, 1);
-      req.onupgradeneeded = () => { req.result.createObjectStore(GH_TOKEN_STORE); };
-      req.onsuccess = () => resolve(req.result);
-      req.onerror = () => reject(req.error);
-    });
-  }
-  function ghIdbRequest(req) {
-    return new Promise((resolve, reject) => {
-      req.onsuccess = () => resolve(req.result);
-      req.onerror = () => reject(req.error);
-    });
-  }
-  async function ghLoadKeyFromIdb() {
-    if (!window.indexedDB) return null;
-    let db = null;
-    try {
-      db = await ghIdbOpen();
-      const key = await ghIdbRequest(
-        db.transaction(GH_TOKEN_STORE, 'readonly').objectStore(GH_TOKEN_STORE).get(GH_TOKEN_KEY_ID)
-      );
-      db.close();
-      return key || null;
-    } catch (e) {
-      try { if (db) db.close(); } catch (ignore) { /* noop */ }
-      return null;
-    }
-  }
-  async function ghStoreKeyToIdb(key) {
-    if (!window.indexedDB) return false;
-    let db = null;
-    try {
-      db = await ghIdbOpen();
-      await ghIdbRequest(
-        db.transaction(GH_TOKEN_STORE, 'readwrite').objectStore(GH_TOKEN_STORE).put(key, GH_TOKEN_KEY_ID)
-      );
-      db.close();
-      return true;
-    } catch (e) {
-      try { if (db) db.close(); } catch (ignore) { /* noop */ }
-      return false;
-    }
-  }
-  async function ghLoadKeyFromJwk() {
-    try {
-      const jwk = JSON.parse(localStorage.getItem(LS_GITHUB_KEY_JWK));
-      if (!jwk) return null;
-      return await crypto.subtle.importKey('jwk', jwk, { name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']);
-    } catch (e) { return null; }
-  }
-  async function ghGetKey(create) {
-    let key = await ghLoadKeyFromIdb();
-    if (key) return key;
-    key = await ghLoadKeyFromJwk();
-    if (key) return key;
-    if (!create) return null;
-    key = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
-    if (await ghStoreKeyToIdb(key)) return key;
-    try {
-      const k2 = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']);
-      const jwk = await crypto.subtle.exportKey('jwk', k2);
-      localStorage.setItem(LS_GITHUB_KEY_JWK, JSON.stringify(jwk));
-      return k2;
-    } catch (e) { return key; }
-  }
-  async function ghEncryptToken(token) {
-    const key = await ghGetKey(true);
-    const iv = crypto.getRandomValues(new Uint8Array(12));
-    const ct = await crypto.subtle.encrypt(
-      { name: 'AES-GCM', iv }, key, new TextEncoder().encode(token)
-    );
-    return JSON.stringify({ v: 1, iv: ghB64Encode(iv), data: ghB64Encode(ct) });
-  }
-  async function ghDecryptToken(blob) {
-    const parsed = JSON.parse(blob);
-    const key = await ghGetKey(false);
-    if (!key) return '';
-    const pt = await crypto.subtle.decrypt(
-      { name: 'AES-GCM', iv: ghB64Decode(parsed.iv) }, key, ghB64Decode(parsed.data)
-    );
-    return new TextDecoder().decode(pt);
-  }
-  async function ghPersistToken(token) {
-    try {
-      if (!token) { localStorage.removeItem(LS_GITHUB_TOKEN_ENC); return; }
-      if (!(window.crypto && crypto.subtle)) return; // 暗号化できない場合は平文で保存しない
-      const blob = await ghEncryptToken(token);
-      localStorage.setItem(LS_GITHUB_TOKEN_ENC, blob);
-    } catch (e) { /* noop */ }
-  }
-  async function ghRestoreToken() {
-    try {
-      const blob = localStorage.getItem(LS_GITHUB_TOKEN_ENC);
-      if (!blob) return;
-      const tok = await ghDecryptToken(blob);
-      if (tok) {
-        state.github.token = tok;
-        if (typeof renderGithubCard === 'function') renderGithubCard();
-      }
-    } catch (e) { /* noop */ }
-  }
-  async function ghDeleteToken() {
-    try {
-      localStorage.removeItem(LS_GITHUB_TOKEN_ENC);
-      localStorage.removeItem(LS_GITHUB_KEY_JWK);
-    } catch (e) { /* noop */ }
-    if (!window.indexedDB) return;
-    let db = null;
-    try {
-      db = await ghIdbOpen();
-      await ghIdbRequest(
-        db.transaction(GH_TOKEN_STORE, 'readwrite').objectStore(GH_TOKEN_STORE).delete(GH_TOKEN_KEY_ID)
-      );
-      db.close();
-    } catch (e) {
-      try { if (db) db.close(); } catch (ignore) { /* noop */ }
-    }
-  }
-
-  function saveGithubSettings() {
-    try {
-      const g = state.github || {};
-      // トークンは平文で保存しないため、LS_GITHUBには含めない(暗号化保存はghPersistTokenが行う)
-      localStorage.setItem(LS_GITHUB, JSON.stringify({
-        owner: typeof g.owner === 'string' ? g.owner : '',
-        repo: typeof g.repo === 'string' ? g.repo : '',
-        token: '',
-        lastSent: (g.lastSent && typeof g.lastSent === 'object') ? g.lastSent : null,
-      }));
-    } catch (e) { /* noop */ }
-    ghPersistToken(state.github ? state.github.token : '');
-  }
-  function isGithubConfigured() {
-    const g = state.github;
-    return !!(g && g.owner && g.repo && g.token);
-  }
-
-  /* --- UTF-8 <-> base64 (GitHub Contents APIはbase64でやり取りする) --- */
-  function utf8ToBase64(str) {
-    const bytes = new TextEncoder().encode(str);
-    let bin = '';
-    const CHUNK = 0x8000; // 引数の数が多すぎてapplyが失敗しないよう分割する
-    for (let i = 0; i < bytes.length; i += CHUNK) {
-      bin += String.fromCharCode.apply(null, bytes.subarray(i, i + CHUNK));
-    }
-    return btoa(bin);
-  }
-  function base64ToUtf8(b64) {
-    const bin = atob(String(b64).replace(/\s/g, ''));
-    const bytes = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-    return new TextDecoder('utf-8').decode(bytes);
-  }
-
-  /**
-   * 既存のREADME本文に当日分のブロックを反映する。
-   * - 同じ日付の見出しが既にあれば、そのブロック(次の見出しの直前まで)だけを最新値に差し替える
-   * - 無ければ末尾に追記する
-   * どちらの場合も、当日分ブロック以外の既存の記述には一切手を加えない。
-   */
-  function mergeReadme(existing, block, dateKey) {
-    const text = typeof existing === 'string' ? existing : '';
-    const heading = `## ${dateKey} の学習実績`;
-    const lines = text.split('\n');
-    const start = lines.findIndex((l) => l.trim() === heading);
-
-    if (start < 0) {
-      if (!text) return block + '\n';
-      const sep = text.endsWith('\n\n') ? '' : (text.endsWith('\n') ? '\n' : '\n\n');
-      return text + sep + block + '\n';
-    }
-
-    let end = lines.length;
-    for (let i = start + 1; i < lines.length; i++) {
-      if (/^#{1,6}\s/.test(lines[i])) { end = i; break; }
-    }
-    // 置き換える範囲の末尾にあった空行は、前後の体裁を崩さないようそのまま残す
-    const removed = lines.slice(start, end);
-    let trailing = 0;
-    while (trailing < removed.length && removed[removed.length - 1 - trailing].trim() === '') trailing++;
-    const blanks = new Array(trailing).fill('');
-    return lines.slice(0, start).concat(block.split('\n'), blanks, lines.slice(end)).join('\n');
-  }
-
-  /* --- GitHub REST API --- */
-  function ghHeaders(token) {
-    return {
-      Accept: 'application/vnd.github+json',
-      Authorization: 'Bearer ' + token,
-      'X-GitHub-Api-Version': '2022-11-28',
-    };
-  }
-
-  function ghErrorMessage(status, body) {
-    const detail = body && body.message ? `（${body.message}）` : '';
-    if (status === 401) return 'アクセストークンが無効か、有効期限が切れています。「GitHub連携設定」でトークンを確認してください。' + detail;
-    if (status === 403) return 'GitHubにアクセスを拒否されました。トークンの権限(Contents: Read and write)、またはAPIのレート制限を確認してください。' + detail;
-    if (status === 404) return 'リポジトリが見つかりません。ユーザー名とリポジトリ名、privateリポジトリの場合はトークンにそのリポジトリへのアクセス権があるかを確認してください。' + detail;
-    if (status === 422) return 'GitHubがリクエストを受け付けませんでした。ブランチやファイルの状態を確認してください。' + detail;
-    return `GitHub APIでエラーが発生しました (HTTP ${status})` + detail;
-  }
-
-  async function ghRequest(url, options) {
-    let res;
-    try {
-      res = await fetch(url, Object.assign({ credentials: 'omit', cache: 'no-store' }, options));
-    } catch (e) {
-      throw new Error('GitHubに接続できませんでした。ネットワーク接続、またはブラウザ拡張機能・プロキシによる通信のブロックを確認してください。');
-    }
-    let body = null;
-    const txt = await res.text();
-    if (txt) { try { body = JSON.parse(txt); } catch (e) { body = null; } }
-    return { status: res.status, ok: res.ok, body };
-  }
-
-  async function ghFetchReadme(owner, repo, branch, token) {
-    const url = `${GITHUB_API}/repos/${owner}/${repo}/contents/${README_PATH}?ref=${encodeURIComponent(branch)}`;
-    const res = await ghRequest(url, { headers: ghHeaders(token) });
-    if (res.status === 404) return { text: '', sha: null }; // README.mdが無ければ新規作成する
-    if (!res.ok) throw new Error(ghErrorMessage(res.status, res.body));
-    const body = res.body || {};
-    if (Array.isArray(body)) throw new Error('README.md がファイルとして取得できませんでした。リポジトリの内容を確認してください。');
-    if (body.encoding !== 'base64' || typeof body.content !== 'string') {
-      throw new Error('README.md が大きすぎるため、このAPIでは読み書きできません(1MB未満のファイルのみ対応)。');
-    }
-    return { text: base64ToUtf8(body.content), sha: body.sha };
-  }
-
-  /**
-   * 本日の学習実績をREADME.mdへコミットする。
-   * 1) リポジトリ情報を取得してデフォルトブランチを決定(アクセス権の検証も兼ねる)
-   * 2) README.mdの現在の内容とshaを取得
-   * 3) 当日分ブロックを反映した内容をPUT(=コミット)
-   * shaの競合(他端末からの更新など)が起きた場合のみ、取り直して1回だけ再試行する。
-   */
-  async function pushTodayToGithub() {
-    if (!isGithubConfigured()) {
-      throw new Error('GitHub連携設定が未入力です。「⚙️ GitHub連携設定」からユーザー名・リポジトリ名・アクセストークンを設定してください。');
-    }
-    const log = getTodayLog();
-    if (!log) {
-      throw new Error('本日の学習記録がまだありません。練習モードまたは模擬試験モードを最後まで実施すると送信できます。');
-    }
-
-    const g = state.github;
-    const owner = encodeURIComponent(g.owner);
-    const repo = encodeURIComponent(g.repo);
-
-    const repoRes = await ghRequest(`${GITHUB_API}/repos/${owner}/${repo}`, { headers: ghHeaders(g.token) });
-    if (!repoRes.ok) throw new Error(ghErrorMessage(repoRes.status, repoRes.body));
-    const branch = (repoRes.body && repoRes.body.default_branch) || 'main';
-
-    const block = buildDailyMarkdown(log);
-    const message = `学習ログ ${log.date}（${log.totalQuestions}問 / 正解${log.correctCount}問）`;
-
-    for (let attempt = 0; attempt < 2; attempt++) {
-      const cur = await ghFetchReadme(owner, repo, branch, g.token);
-      const payload = {
-        message,
-        content: utf8ToBase64(mergeReadme(cur.text, block, log.date)),
-        branch,
-      };
-      if (cur.sha) payload.sha = cur.sha;
-
-      const put = await ghRequest(`${GITHUB_API}/repos/${owner}/${repo}/contents/${README_PATH}`, {
-        method: 'PUT',
-        headers: Object.assign({ 'Content-Type': 'application/json' }, ghHeaders(g.token)),
-        body: JSON.stringify(payload),
-      });
-      if (put.ok) {
-        const commit = (put.body && put.body.commit) || {};
-        return { url: commit.html_url || '', created: !cur.sha, date: log.date, branch };
-      }
-      if ((put.status === 409 || put.status === 422) && attempt === 0) continue;
-      throw new Error(ghErrorMessage(put.status, put.body));
-    }
-    throw new Error('README.mdの更新に失敗しました。時間をおいてもう一度お試しください。');
-  }
-
-  /* --- ホーム画面のGitHub連携カード --- */
-  function setGhStatus(kind, html) {
-    const el = $('#gh-status');
-    if (!el) return;
-    if (!html) { el.hidden = true; el.innerHTML = ''; return; }
-    el.className = 'gh-status' + (kind ? ' ' + kind : '');
-    el.innerHTML = html;
-    el.hidden = false;
-  }
-
-  function renderGithubCard() {
-    const log = getTodayLog();
-    const total = log ? log.totalQuestions : 0;
-    const correct = log ? log.correctCount : 0;
-    const chapters = dailyChapterLabels(log);
-
-    $('#gh-today-total').textContent = `${total}問`;
-    $('#gh-today-correct').textContent = `${correct}問`;
-    $('#gh-today-chapters').textContent = chapters.length ? chapters.join(' / ') : '—';
-    $('#gh-preview').textContent = log
-      ? buildDailyMarkdown(log)
-      : '本日の学習記録はまだありません。練習モードまたは模擬試験モードを最後まで実施すると、ここに送信内容が表示されます。';
-
-    const g = state.github;
-    const label = $('#gh-config-label');
-    if (isGithubConfigured()) {
-      const sent = g.lastSent;
-      const sentText = sent && sent.at ? `　最終送信: ${fmtDate(sent.at)}（${escapeHtml(sent.date || '')}分）` : '　最終送信: まだありません';
-      label.innerHTML = `送信先: <b>${escapeHtml(g.owner)}/${escapeHtml(g.repo)}</b> の README.md${sentText}`;
-    } else {
-      label.textContent = '送信先リポジトリが未設定です。「⚙️ GitHub連携設定」からユーザー名・リポジトリ名・アクセストークンを設定してください。';
-    }
-
-    $('#gh-push-btn').disabled = !isGithubConfigured() || !log;
-  }
-
-  function openGithubModal() {
-    const g = state.github || normalizeGithubSettings(null);
-    $('#gh-owner').value = g.owner || '';
-    $('#gh-repo').value = g.repo || '';
-    $('#gh-token').value = g.token || '';
-    setTokenVisible(false);
-    $('#gh-modal-error').hidden = true;
-    $('#modal-github').hidden = false;
-    const first = $('#gh-owner');
-    if (first) first.focus();
-  }
-  function closeGithubModal() { $('#modal-github').hidden = true; }
-
-  function setTokenVisible(visible) {
-    const input = $('#gh-token');
-    const btn = $('#gh-token-toggle');
-    input.type = visible ? 'text' : 'password';
-    btn.textContent = visible ? '隠す' : '表示';
-    btn.setAttribute('aria-pressed', String(visible));
-  }
-
-  function showGithubModalError(msg) {
-    const el = $('#gh-modal-error');
-    el.textContent = msg;
-    el.hidden = false;
-  }
-
-  function saveGithubModal() {
-    const owner = $('#gh-owner').value.trim();
-    const repo = $('#gh-repo').value.trim();
-    const token = $('#gh-token').value.trim();
-    if (!owner || !repo || !token) {
-      showGithubModalError('ユーザー名・リポジトリ名・アクセストークンをすべて入力してください。');
-      return;
-    }
-    if (!GH_NAME_RE.test(owner) || !GH_NAME_RE.test(repo)) {
-      showGithubModalError('ユーザー名・リポジトリ名には半角英数字と - _ . のみを入力してください（URLやスラッシュは不要です）。');
-      return;
-    }
-    state.github = normalizeGithubSettings({ owner, repo, token, lastSent: state.github ? state.github.lastSent : null });
-    saveGithubSettings();
-    closeGithubModal();
-    renderGithubCard();
-    setGhStatus('', `送信先を ${escapeHtml(owner)}/${escapeHtml(repo)} に設定しました。`);
-  }
-
-  function clearGithubSettings() {
-    closeGithubModal();
-    openConfirm(
-      'GitHub連携設定を削除しますか？',
-      'このブラウザに保存されているユーザー名・リポジトリ名・アクセストークンを削除します。学習履歴や日々の学習記録は削除されません。',
-      () => {
-        state.github = normalizeGithubSettings(null);
-        try { localStorage.removeItem(LS_GITHUB); } catch (e) { /* noop */ }
-        ghDeleteToken();
-        renderGithubCard();
-        setGhStatus('', 'GitHub連携設定を削除しました。');
-      },
-    );
-  }
-
-  async function onGithubPushClick() {
-    const btn = $('#gh-push-btn');
-    if (btn.disabled) return;
-    const original = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = 'GitHubに送信中…';
-    setGhStatus('', 'GitHubに接続しています…');
-    try {
-      const r = await pushTodayToGithub();
-      state.github.lastSent = { date: r.date, at: new Date().toISOString(), url: r.url };
-      saveGithubSettings();
-      const link = r.url
-        ? ` <a href="${attrEscape(r.url)}" target="_blank" rel="noopener noreferrer">コミットを見る</a>`
-        : '';
-      setGhStatus('ok', `&#127793; ${escapeHtml(r.date)} の学習実績を ${escapeHtml(state.github.owner)}/${escapeHtml(state.github.repo)} の README.md に${r.created ? '作成' : '記録'}しました（${escapeHtml(r.branch)}ブランチ）。${link}`);
-    } catch (e) {
-      setGhStatus('ng', escapeHtml(e && e.message ? e.message : String(e)));
-    } finally {
-      btn.textContent = original;
-      renderGithubCard();
-    }
-  }
-
-  function bindGithubEvents() {
-    $('#gh-settings-btn').addEventListener('click', openGithubModal);
-    $('#gh-push-btn').addEventListener('click', onGithubPushClick);
-    $('#gh-modal-cancel').addEventListener('click', closeGithubModal);
-    $('#gh-modal-save').addEventListener('click', saveGithubModal);
-    $('#gh-modal-clear').addEventListener('click', clearGithubSettings);
-    $('#gh-token-toggle').addEventListener('click', () => {
-      setTokenVisible($('#gh-token').type === 'password');
-    });
-    $('#modal-github').addEventListener('click', (e) => { if (e.target.id === 'modal-github') closeGithubModal(); });
-    $('#modal-github').addEventListener('keydown', (e) => {
-      // 入力欄でのEnterは保存(ボタン上のEnterは本来のクリック動作を優先する)
-      if (e.key === 'Enter' && e.target.tagName === 'INPUT') { e.preventDefault(); saveGithubModal(); }
-      if (e.key === 'Escape') closeGithubModal();
-    });
-  }
-
   /* ---------------------------------------------------------
      18. 初期化
      --------------------------------------------------------- */
@@ -3808,7 +3200,6 @@ window.DB_STATS = {"practice":{"1":{"title":"テスト活動のマネジメン�
     bindResultEvents();
     bindHistoryEvents();
     bindBookmarksEvents();
-    bindGithubEvents();
     renderHeaderCounts();
     try { history.replaceState({ view: 'home' }, ''); } catch (e) {}
     showView('home');
